@@ -7,20 +7,27 @@
       <table-header-item></table-header-item>
     </table-header>
     <% @books.each do |book| %>
-    <table-main>
-      <table-main-item><%= book.title %></table-main-item>
-      <table-main-item><%= book.body %></table-main-item>
-      <table-main-item>
-        <%= link_to "Show", book_path(book) %>
-        <%= link_to "Edit", edit_book_path(book) %>
-        <%= link_to "Destroy", book_path(book),method: :delete %>
-      </table-main-item>
-    </table-main>
+      <table-main>
+        <table-main-item><%= book.title %></table-main-item>
+        <table-main-item><%= book.body %></table-main-item>
+        <table-main-item>
+          <%= link_to "Show", book_path(book) %>
+          <%= link_to "Edit", edit_book_path(book) %>
+          <%= link_to "Destroy", book_path(book),method: :delete %>
+        </table-main-item>
+      </table-main>
     <% end %>
   </table>
 
 
 <h2>New book</h2>
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>件のエラーが発生しました
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
 <%= form_with model:@book, local:true do |f| %>
   <h4>Title</h4>
   <%= f.text_field :title %>
